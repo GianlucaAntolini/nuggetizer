@@ -113,7 +113,7 @@ class Nuggetizer(BaseNuggetizer):
                 self.logger.info(f"Generated prompt:\n{prompt}")
             
             temperature = 0.0
-            trial_count = 500
+            trial_count = 10
             while trial_count > 0:
                 try:
                     if self.log_level >= 1:
@@ -148,7 +148,7 @@ class Nuggetizer(BaseNuggetizer):
             window_nuggets = nuggets[start:end]
             
             prompt = self._create_score_prompt(request.query.text, window_nuggets)
-            trial_count = 500
+            trial_count = 10
             temperature = 0.0
             while trial_count > 0:
                 try:
@@ -202,7 +202,7 @@ class Nuggetizer(BaseNuggetizer):
             if self.log_level >= 2:
                 self.logger.info(f"Generated prompt:\n{prompt}")
             
-            trial_count = 500
+            trial_count = 10
             temperature = 0.0
             while trial_count > 0:
                 try:

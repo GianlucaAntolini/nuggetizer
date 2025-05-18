@@ -24,7 +24,7 @@ def setup_logging(log_level: int) -> None:
 def read_jsonl(file_path: str) -> List[Dict]:
     """Read JSONL file and return list of dictionaries."""
     data = []
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         for line in f:
             data.append(json.loads(line))
     return data
