@@ -117,7 +117,7 @@ class Nuggetizer(BaseNuggetizer):
             while trial_count > 0:
                 try:
                     if self.log_level >= 1:
-                        self.logger.info(f"Attempting LLM call (trial {500-trial_count+1})")
+                        self.logger.info(f"CREATE Attempting LLM call (trial {10-trial_count+1})")
                     response, _ = self.creator_llm.run(prompt, temperature=temperature)
                     if self.log_level >= 2:
                         self.logger.info(f"Raw LLM response:\n{response}")
@@ -132,7 +132,7 @@ class Nuggetizer(BaseNuggetizer):
                     temperature = 0.2
                     trial_count -= 1
                     if trial_count == 0:
-                        self.logger.error("Failed to parse response after 500 attempts")
+                        self.logger.error("Failed to parse response after 10 attempts")
             
             start += self.creator_window_size
             if self.log_level >= 1:
@@ -207,7 +207,7 @@ class Nuggetizer(BaseNuggetizer):
             while trial_count > 0:
                 try:
                     if self.log_level >= 1:
-                        self.logger.info(f"Attempting LLM call (trial {500-trial_count+1})")
+                        self.logger.info(f"ASSIGN Attempting LLM call (trial {10-trial_count+1})")
                     response, _ = self.assigner_llm.run(prompt, temperature=temperature)
                     if self.log_level >= 2:
                         self.logger.info(f"Raw LLM response:\n{response}")
@@ -230,7 +230,7 @@ class Nuggetizer(BaseNuggetizer):
                         trial_count -= 1
                         temperature = 0.2
                     if trial_count == 0:
-                        self.logger.error("Failed to parse response after 500 attempts")
+                        self.logger.error("Failed to parse response after 10 attempts")
                         assigned_nuggets.extend([
                             AssignedScoredNugget(text=nugget.text, importance=nugget.importance, assignment="failed")
                             for nugget in window_nuggets

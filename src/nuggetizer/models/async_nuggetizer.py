@@ -121,11 +121,11 @@ class AsyncNuggetizer(BaseNuggetizer):
                 self.logger.info(f"Generated prompt:\n{prompt}")
             
             temperature = 0.0
-            trial_count = 500
+            trial_count = 10
             while trial_count > 0:
                 try:
                     if self.log_level >= 1:
-                        self.logger.info(f"Attempting LLM call (trial {500-trial_count+1})")
+                        self.logger.info(f"CREATE Attempting LLM call (trial {10-trial_count+1})")
                     response, _ = await self.creator_llm.run(prompt, temperature=temperature)
                     if self.log_level >= 2:
                         self.logger.info(f"Raw LLM response:\n{response}")
@@ -140,7 +140,7 @@ class AsyncNuggetizer(BaseNuggetizer):
                     temperature = 0.2
                     trial_count -= 1
                     if trial_count == 0:
-                        self.logger.error("Failed to parse response after 500 attempts")
+                        self.logger.error("Failed to parse response after 10 attempts")
             
             start += self.creator_window_size
             if self.log_level >= 1:
@@ -156,7 +156,7 @@ class AsyncNuggetizer(BaseNuggetizer):
             window_nuggets = nuggets[start:end]
             
             prompt = self._create_score_prompt(request.query.text, window_nuggets)
-            trial_count = 500
+            trial_count = 10
             temperature = 0.0
             while trial_count > 0:
                 try:
@@ -218,12 +218,12 @@ class AsyncNuggetizer(BaseNuggetizer):
             if self.log_level >= 2:
                 self.logger.info(f"Generated prompt:\n{prompt}")
 
-            trial_count = 500
+            trial_count = 10
             temperature = 0.0
             while trial_count > 0:
                 try:
                     if self.log_level >= 1:
-                        self.logger.info(f"Attempting LLM call (trial {500-trial_count+1})")
+                        self.logger.info(f"ASSIGN Attempting LLM call (trial {10-trial_count+1})")
                     response, _ = await self.assigner_llm.run(prompt, temperature=temperature)
                     if self.log_level >= 2:
                         self.logger.info(f"Raw LLM response:\n{response}")
@@ -247,7 +247,7 @@ class AsyncNuggetizer(BaseNuggetizer):
                         trial_count -= 1
                         temperature = 0.2
                     if trial_count == 0:
-                        self.logger.error("Failed to parse response after 500 attempts")
+                        self.logger.error("Failed to parse response after 10 attempts")
                         return [
                             AssignedScoredNugget(text=nugget.text, importance=nugget.importance, assignment="failed")
                             for nugget in window_nuggets

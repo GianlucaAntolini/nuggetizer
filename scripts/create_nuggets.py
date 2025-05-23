@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+import sys
+import os
+# Ensure nuggetizer is importable when running as a script
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
 import argparse
 import json
 import logging
